@@ -19,7 +19,7 @@
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 		</footer>
 
-		<script id="template" type="text/template">
+		<script id="app-template" type="text/template">
 			<section class="todoapp">
 				<header class="header">
 					<h1>todos</h1>
@@ -30,14 +30,7 @@
 					<label for="toggle-all">Mark all as complete</label>
 					<ul class="todo-list">
 						{{#todos}}
-						<li class="{{#completed}}completed{{/completed}} {{#editing}}editing{{/editing}} {{#hidden}}hidden{{/hidden}}">
-							<div class="view">
-								<input class="toggle" type="checkbox" {{#completed}}checked{{/completed}}>
-								<label>{{title}}</label>
-								<button class="destroy"></button>
-							</div>
-							<input class="edit" value="{{title}}">
-						</li>
+						<todo-item title="{{title}}" {{#completed}}completed="completed"{{/completed}} {{#editing}}editing="editing"{{/editing}} {{#hidden}}hidden="hidden"{{/hidden}}></todo-item>
 						{{/todos}}
 					</ul>
 				</section>
@@ -60,10 +53,22 @@
 			</section>
 		</script>
 
+		<script id="todoitem-template" type="text/template">
+			<li class="todo-item {{#completed}}completed{{/completed}} {{#editing}}editing{{/editing}} {{#hidden}}hidden{{/hidden}}">
+				<div class="view">
+					<input class="toggle" type="checkbox" {{#completed}}checked{{/completed}}>
+					<label>{{title}}</label>
+					<button class="destroy"></button>
+				</div>
+				<input class="edit" value="{{title}}">
+			</li>
+		</script>
+
 		<script src="node_modules/todomvc-common/base.js"></script>
 		<script src="node_modules/hyperd/hyperd.js"></script>
 		<script src="node_modules/director/build/director.js"></script>
 		<script src="node_modules/mustache/mustache.js"></script>
+		<script src="js/todo-item.js"></script>
 		<script src="js/app.js"></script>
 	</body>
 </html>
