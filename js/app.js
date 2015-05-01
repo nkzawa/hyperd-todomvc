@@ -15,6 +15,7 @@
 
       this.data.todos = store('todos');
       this.data.filter = null;
+      this.filteredTodos = [];
 
       this.on('keyup', '.new-todo', this.onKeyupNewTodo);
       this.on('change', '.toggle-all', this.onChangeToggleAll);
@@ -27,17 +28,14 @@
     },
 
     render: function() {
-      var filter = this.getFilter();
-      var data = this.data;
-      data.todos.forEach(function(todo) {
-        todo.hidden = !filter(todo);
-      });
-
-      var view = {};
-      view.todos = data.todos;
-      view.filter = data.filter;
-      view.activeTodoCount = this.getActiveTodos().length;
-      view.completedTodoCount = data.todos.length - view.activeTodoCount;
+      this.filteredTodos = this.getFilteredTodos();
+      var view = {
+        filteredTodos: this.filteredTodos,
+        filter: this.data.filter,
+        todoCount: this.data.todos.length,
+        activeTodoCount: this.getActiveTodos().length
+      };
+      view.completedTodoCount = this.data.todos.length - view.activeTodoCount;
 
       return Mustache.render(template, view);
     },
@@ -83,8 +81,7 @@
       this.data.todos.push({
         title: title,
         completed: false,
-        editing: false,
-        hidden: false
+        editing: false
       });
     },
 
@@ -97,7 +94,6 @@
 
     onClearCompleted: function(e) {
       this.data.todos = this.getActiveTodos();
-      this.data.filter = 'all';
     },
 
     indexFromElement: function (el) {

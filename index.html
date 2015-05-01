@@ -25,18 +25,18 @@
 					<h1>todos</h1>
 					<input class="new-todo" placeholder="What needs to be done?" autofocus>
 				</header>
-				{{#todos.length}}
+				{{#todoCount}}
 				<section class="main">
 					<input class="toggle-all" type="checkbox" {{^activeTodoCount}}checked{{/activeTodoCount}}>
 					<label for="toggle-all">Mark all as complete</label>
 					<ul class="todo-list">
-						{{#todos}}
-						<todo-item title="{{title}}" {{#completed}}completed="completed"{{/completed}} {{#editing}}editing="editing"{{/editing}} {{#hidden}}hidden="hidden"{{/hidden}}></todo-item>
-						{{/todos}}
+						{{#filteredTodos}}
+						<todo-item title="{{title}}" {{#completed}}completed="completed"{{/completed}} {{#editing}}editing="editing"{{/editing}}></todo-item>
+						{{/filteredTodos}}
 					</ul>
 				</section>
 				<app-footer filter="{{filter}}" activeTodoCount="{{activeTodoCount}}" completedTodoCount="{{completedTodoCount}}"></app-footer>
-				{{/todos.length}}
+				{{/todoCount}}
 			</section>
 		</script>
 
