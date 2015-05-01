@@ -25,7 +25,8 @@
 					<h1>todos</h1>
 					<input class="new-todo" placeholder="What needs to be done?" autofocus>
 				</header>
-				<section class="main" {{^todos.length}}class="hidden"{{/todos.length}}>
+				{{#todos.length}}
+				<section class="main">
 					<input class="toggle-all" type="checkbox" {{^activeTodoCount}}checked{{/activeTodoCount}}>
 					<label for="toggle-all">Mark all as complete</label>
 					<ul class="todo-list">
@@ -34,22 +35,8 @@
 						{{/todos}}
 					</ul>
 				</section>
-				
-				<footer class="footer" {{^todos.length}}class="hidden"{{/todos.length}}>
-					<span class="todo-count"><strong>{{activeTodoCount}}</strong> {{activeTodoWord}} left</span>
-					<ul class="filters">
-						<li>
-							<a {{#filterAll}}class="selected"{{/filterAll}} href="#/all">All</a>
-						</li>
-						<li>
-							<a {{#filterActive}}class="selected"{{/filterActive}} href="#/active">Active</a>
-						</li>
-						<li>
-							<a {{#filterCompleted}}class="selected"{{/filterCompleted}} href="#/completed">Completed</a>
-						</li>
-					</ul>
-					<button class="clear-completed" {{^completedTodoCount}}class="hidden"{{/completedTodoCount}}>Clear completed ({{completedTodoCount}})</button>
-				</footer>
+				<app-footer filter="{{filter}}" activeTodoCount="{{activeTodoCount}}" completedTodoCount="{{completedTodoCount}}"></app-footer>
+				{{/todos.length}}
 			</section>
 		</script>
 
@@ -64,11 +51,32 @@
 			</li>
 		</script>
 
+		<script id="footer-template" type="text/template">
+			<footer class="footer">
+				<span class="todo-count"><strong>{{activeTodoCount}}</strong> {{activeTodoWord}} left</span>
+				<ul class="filters">
+					<li>
+						<a {{#filterAll}}class="selected"{{/filterAll}} href="#/all">All</a>
+					</li>
+					<li>
+						<a {{#filterActive}}class="selected"{{/filterActive}} href="#/active">Active</a>
+					</li>
+					<li>
+						<a {{#filterCompleted}}class="selected"{{/filterCompleted}} href="#/completed">Completed</a>
+					</li>
+				</ul>
+				{{#completedTodoCount}}
+				<button class="clear-completed">Clear completed ({{completedTodoCount}})</button>
+				{{/completedTodoCount}}
+			</footer>
+		</script>
+
 		<script src="node_modules/todomvc-common/base.js"></script>
 		<script src="node_modules/hyperd/hyperd.js"></script>
 		<script src="node_modules/director/build/director.js"></script>
 		<script src="node_modules/mustache/mustache.js"></script>
 		<script src="js/todo-item.js"></script>
+		<script src="js/footer.js"></script>
 		<script src="js/app.js"></script>
 	</body>
 </html>

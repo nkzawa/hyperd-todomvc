@@ -6,7 +6,8 @@
 
   global.App = hyperd.Component.extend({
     components: {
-      'todo-item': TodoItem
+      'todo-item': TodoItem,
+      'app-footer': Footer
     },
 
     constructor: function() {
@@ -17,7 +18,7 @@
 
       this.on('keyup', '.new-todo', this.onKeyupNewTodo);
       this.on('change', '.toggle-all', this.onChangeToggleAll);
-      this.on('click', '.clear-completed', this.onClickClearCompleted);
+      this.on('clear', '.footer', this.onClearCompleted);
       this.on('toggle', '.todo-item', this.onToggleTodoItem);
       this.on('edit', '.todo-item', this.onEditTodoItem);
       this.on('change', '.todo-item', this.onChangeTodoItem);
@@ -34,12 +35,9 @@
 
       var view = {};
       view.todos = data.todos;
+      view.filter = data.filter;
       view.activeTodoCount = this.getActiveTodos().length;
       view.completedTodoCount = data.todos.length - view.activeTodoCount;
-      view.activeTodoWord = pluralize(view.activeTodoCount, 'item');
-      view.filterActive = data.filter === 'active';
-      view.filterCompleted = data.filter === 'completed';
-      view.filterAll = !view.filterActive && !view.filterCompleted;
 
       return Mustache.render(template, view);
     },
@@ -97,7 +95,7 @@
       });
     },
 
-    onClickClearCompleted: function(e) {
+    onClearCompleted: function(e) {
       this.data.todos = this.getActiveTodos();
       this.data.filter = 'all';
     },
@@ -152,10 +150,6 @@
     app.data.filter = filter;
   });
   router.init();
-
-  function pluralize(count, word) {
-    return count === 1 ? word : word + 's';
-  }
 
   function store(key, data) {
     if ('undefined' !== typeof data) {
