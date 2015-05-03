@@ -46,7 +46,7 @@
     },
 
     onBlurEdit: function(e) {
-      this.emit('change', e.target.value);
+      this.emit('editComplete', e.target.value);
     },
 
     onClickDestroy: function(e) {
