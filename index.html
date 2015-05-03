@@ -27,11 +27,11 @@
 				</header>
 				{{#todoCount}}
 				<section class="main">
-					<input class="toggle-all" type="checkbox" {{^activeTodoCount}}checked{{/activeTodoCount}}>
+					<input class="toggle-all" type="checkbox" {{^activeTodoCount}}checked="checked"{{/activeTodoCount}}>
 					<label for="toggle-all">Mark all as complete</label>
 					<ul class="todo-list">
 						{{#filteredTodos}}
-						<todo-item title="{{title}}" {{#completed}}completed="completed"{{/completed}} {{#editing}}editing="editing"{{/editing}}></todo-item>
+						<todo-item data-hkey="{{id}}" title="{{title}}" {{#completed}}completed="completed"{{/completed}} {{#editing}}editing="editing"{{/editing}}></todo-item>
 						{{/filteredTodos}}
 					</ul>
 				</section>
@@ -43,7 +43,7 @@
 		<script id="todoitem-template" type="text/template">
 			<li class="todo-item {{#completed}}completed{{/completed}} {{#editing}}editing{{/editing}} {{#hidden}}hidden{{/hidden}}">
 				<div class="view">
-					<input class="toggle" type="checkbox" {{#completed}}checked{{/completed}}>
+					<input class="toggle" type="checkbox" {{#completed}}checked="checked"{{/completed}}>
 					<label>{{title}}</label>
 					<button class="destroy"></button>
 				</div>
