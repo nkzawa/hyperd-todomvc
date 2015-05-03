@@ -99,7 +99,10 @@
     indexFromElement: function (el) {
       var children = el.parentNode.children;
       for (var i = 0, len = children.length; i < len; i++) {
-        if (el === children[i]) return i;
+        if (el === children[i]) {
+          var todo = this.filteredTodos[i];
+          return this.data.todos.indexOf(todo);
+        }
       }
       return -1;
     },
